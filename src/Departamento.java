@@ -1,14 +1,28 @@
 public class Departamento {
-    private int id;
+    private Integer id;
     private String nome;
 
-    //Construtor
-    Departamento(int id, String nome){
+    //CONSTRUTOR = CREATE
+    //Construtor com ID
+    public Departamento(int id, String nome){
         this.id = id;
         this.nome = nome;
     }
 
-    //Getters
+    //Construtor sem ID
+    public Departamento(String nome){
+        this.nome = nome;
+    }
+
+
+    //UPDATE - atualiza todos os dados de uma vez
+    public void AtualizaDadosDepartamentos(String nome){  
+        if(nome != null)
+            this.nome = nome;
+    }
+
+    
+    //Getters = READ
     public int getId(){
         return this.id;
     }
@@ -16,11 +30,15 @@ public class Departamento {
         return this.nome;
     }
 
-    //Setters
+    //Setters = UPDATE de um a um
     public void setId(int id){
         this.id = id;
     }
     public void setNome(String nome){
         this.nome = nome;
     }
+
+
+    //DELETE
+
 }
