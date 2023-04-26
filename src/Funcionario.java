@@ -2,6 +2,23 @@ public class Funcionario {
     private int pk_id, usuarioid, departamentoid;
     private String nome_completo, email, celular, cpf;
 
+
+    // Update
+    public void AtualizaDadosFuncioanrio(Integer usuarioid, Integer departamentoid, String nome_completo, String email, String celular, String cpf){
+        if(usuarioid != null)
+            this.usuarioid = usuarioid;
+        if(departamentoid != null)
+            this.departamentoid = departamentoid;
+        if(nome_completo != null)
+            this.nome_completo = nome_completo;
+        if(email != null)
+            this.email = email;
+        if(celular != null)
+            this.celular = celular;
+        if(cpf != null)
+            this.cpf = cpf;
+    }
+    
     // Getters
     public int getPk_id() {
         return this.pk_id;
