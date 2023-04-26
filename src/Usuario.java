@@ -10,6 +10,12 @@ public class Usuario {
         this.perfil_usuario = valor_perfilusuario;
     }
 
+    public void AtualizarDadosUsuario(String valor_login, String valor_senha, String valor_perfilusuario ){
+        this.login = valor_login;
+        this.senha = valor_senha;
+        this.perfil_usuario = valor_perfilusuario;
+    }
+
 
     // Getters
   public int GetId() {
