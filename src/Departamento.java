@@ -2,11 +2,17 @@ public class Departamento {
     private int id;
     private String nome;
 
+    //Construtor
+    Departamento(int id, String nome){
+        this.id = id;
+        this.nome = nome;
+    }
+
     //Getters
-    public int getId(int id){
+    public int getId(){
         return this.id;
     }
-    public String getNome(String nome){
+    public String getNome(){
         return this.nome;
     }
 

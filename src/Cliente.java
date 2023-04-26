@@ -3,27 +3,27 @@ public class Cliente {
     private String nome_completo, email, celular, cpf;
 
     //Getters
-    public int getId(int id){
+    public int getId(){
         return this.id;
     }
 
-    public int getUsuarioId(int idusuario){
+    public int getUsuarioId(){
         return this.idusuario;
     }
 
-    public String getNome_Completo(String nome_completo){
+    public String getNome_Completo(){
         return this.nome_completo;
     }
 
-    public String getEmail(String email){
+    public String getEmail(){
         return this.email;
     }
 
-    public String getCelular(String celular){
+    public String getCelular(){
         return this.celular;
     }
 
-    public String getCpf(String cpf){
+    public String getCpf(){
         return this.cpf;
     }
 
