@@ -3,12 +3,14 @@ public class Usuario {
    private String login, senha,perfil_usuario;
 
     //Construtor
-    // public void AtualizarDadosUsuario(Integer valor_id, String valor_login, String valor_senha, String valor_perfilusuario ){
-    //     this.Id = valor_id;
-    //     this.login = valor_login;
-    //     this.senha = valor_senha;
-    //     this.perfil_usuario = valor_perfilusuario;
-    // }
+    public Usuario(Integer valor_id, String valor_login, String valor_senha, String valor_perfilusuario ){
+        this.Id = valor_id;
+        this.login = valor_login;
+        this.senha = valor_senha;
+        this.perfil_usuario = valor_perfilusuario;
+    }
+
+
 
     public void AtualizarDadosUsuario(String valor_login, String valor_senha, String valor_perfilusuario ){
         if(login != null)

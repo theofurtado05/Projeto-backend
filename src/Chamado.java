@@ -5,5 +5,5 @@ public class Chamado {
     Date data_abertura, data_prazo, data_fechamento;
     String status, assunto, descricao;
 
-    
+
 }
