@@ -3,16 +3,19 @@ public class Usuario {
    private String login, senha,perfil_usuario;
 
     //Construtor
-    public void AtualizarDadosUsuario(Integer valor_id, String valor_login, String valor_senha, String valor_perfilusuario ){
-        this.Id = valor_id;
-        this.login = valor_login;
-        this.senha = valor_senha;
-        this.perfil_usuario = valor_perfilusuario;
-    }
+    // public void AtualizarDadosUsuario(Integer valor_id, String valor_login, String valor_senha, String valor_perfilusuario ){
+    //     this.Id = valor_id;
+    //     this.login = valor_login;
+    //     this.senha = valor_senha;
+    //     this.perfil_usuario = valor_perfilusuario;
+    // }
 
     public void AtualizarDadosUsuario(String valor_login, String valor_senha, String valor_perfilusuario ){
+        if(login != null)
         this.login = valor_login;
+        if(senha != null)
         this.senha = valor_senha;
+        if(perfil_usuario != null)
         this.perfil_usuario = valor_perfilusuario;
     }
 
@@ -44,4 +47,7 @@ public class Usuario {
   public void SetPerfilUsuario(String newPerfilUsuario){
     this.perfil_usuario = newPerfilUsuario;
   }
+
+  
+        
 }    
