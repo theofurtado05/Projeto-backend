@@ -3,4 +3,5 @@ public class Usuario {
     String login, senha,perfil_usuario;
 
     
+    
 }
