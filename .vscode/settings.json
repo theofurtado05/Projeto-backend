@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/theofurtado05/Documents/Faculdade/Segundo Periodo/Backend/postgresql-42.6.0.jar"
+    ]
+}

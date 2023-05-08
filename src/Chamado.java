@@ -1,9 +1,9 @@
 import java.util.Date;
 
 public class Chamado {
-    int id, clienteid, departamentoid, funcionarioid, nivel_urgencia;
+    int id, usuarioidabriu, departamentoid, usuarioidassumiu, nivel_urgencia, status;
     Date data_abertura, data_prazo, data_fechamento;
-    String status, assunto, descricao;
+    String assunto, descricao;
 
 
 }
