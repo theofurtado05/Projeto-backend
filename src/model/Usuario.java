@@ -3,17 +3,17 @@ package model;
 public class Usuario {
     int pk_id, departamentoId;
     PerfilUsuario perfilUsuario;
-    String nome, sobrenome, email;
+    String nome, sobrenome, email, senha;
 
 
     //CONSTRUTORES
-    public Usuario(int pk_id, int departamentoId, PerfilUsuario perfilUsuario, String nome, String sobrenome,String email){
-        this.pk_id = pk_id;
+    public Usuario(int departamentoId, PerfilUsuario perfilUsuario, String nome, String sobrenome,String email, String senha){
         this.departamentoId = departamentoId;
         this.perfilUsuario = perfilUsuario;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
+        this.senha = senha;
     }
 
     public Usuario(){
@@ -44,6 +44,10 @@ public class Usuario {
         return this.email;
     }
 
+    public String getSenha(){
+        return this.senha;
+    }
+
 
     //SETTERS
     public void setPk_id(int pk_id){
@@ -68,6 +72,10 @@ public class Usuario {
 
     public void setEmail(String email){
         this.email = email;
+    }
+
+    public void setSenha(String senha){
+        this.senha = senha;
     }
 
 }

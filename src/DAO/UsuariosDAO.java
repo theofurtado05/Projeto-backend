@@ -1,7 +1,8 @@
 package DAO;
 
-import java.lang.reflect.Array;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -12,12 +13,12 @@ import model.Usuario;
 
 public class UsuariosDAO {
     
-    ArrayList<Usuario> retrieveAll() throws SQLException{
+    public ArrayList<Usuario> retrieveAll() throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
         Statement stm = connection.createStatement();
 
-        boolean resultado = stm.execute("SELECT nome, sobrenome FROM mydb.usuarios");
+        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios");
 
         ResultSet rst = stm.getResultSet();
 
@@ -74,13 +75,13 @@ public class UsuariosDAO {
         return usuarios;
     }
 
-    Usuario retrieve(Integer id) throws SQLException{
+    public Usuario retrieve(Integer id) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
 
         Statement stm = connection.createStatement();
 
-        boolean resultado = stm.execute("SELECT nome FROM mydb.usuarios WHERE pk_id = 1");
+        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios WHERE pk_id = " + id);
 
         ResultSet rst = stm.getResultSet();
         Usuario usuario = new Usuario();
@@ -139,25 +140,56 @@ public class UsuariosDAO {
         return usuario;
     }
 
-    static boolean create(String nome, String sobrenome, String email, int perfilUsuarioId, int departamentoId) throws SQLException{
+    public static boolean create(Usuario usuario) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
-        Statement stm = connection.createStatement();
 
-        stm.execute("INSERT INTO mydb.usuarios VALUES (5, " + "'" + nome + "', '"  + sobrenome +  "', '" + email + "'," + perfilUsuarioId + "," + departamentoId + '"');
+        String sql = "INSERT INTO mydb.usuarios (nome, sobrenome, email, perfilusuario, senha, departamentoid) VALUES (?, ?, ?, ?, ?, ?)";
+            
+        int perfilUsuarioInt = 0;
 
-        ResultSet rst = stm.getGeneratedKeys();
+       switch(usuario.getPerfilUsuario()){
+            case ADMIN:
+                perfilUsuarioInt = 1;
+                break;
+            
+            case GESTORCOMERCIAL:
+                perfilUsuarioInt = 2;
+                break;
 
-        while(rst.next()){
-            Integer pkid = rst.getInt(4);
-            String nomeRecebido = rst.getString("nome");
-            String sobrenomeRecebido = rst.getString("sobrenome");
-            String emailRecebido = rst.getString("email");
-            System.out.println(nomeRecebido + sobrenomeRecebido + emailRecebido);
+            case GESTOROPERACIONAL:
+                perfilUsuarioInt = 3;
+                break;
+
+            case ANALISTACOMERCIAL:
+                perfilUsuarioInt = 4;
+                break;
+
+            case ANALISTAOPERACAO:
+                perfilUsuarioInt = 5;
+                break;
+
+            case ANALISTATI:
+                perfilUsuarioInt = 6;
+                break;
+
+            default:
+                perfilUsuarioInt = 0;
+                break;
+       }
+
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            
+            pstm.setString(1, usuario.getNome());
+            pstm.setString(2, usuario.getSobrenome());
+            pstm.setString(3, usuario.getEmail());
+            pstm.setInt(4, perfilUsuarioInt);
+            pstm.setString(5, usuario.getSenha());
+            pstm.setInt(6, usuario.getDepartamentoId());
+
+            return pstm.execute();
         }
-
-        connection.close();
-        return true;
     }
 
 }
