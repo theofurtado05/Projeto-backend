@@ -7,7 +7,7 @@ public class Usuario {
 
 
     //CONSTRUTORES
-    public Usuario(int departamentoId, PerfilUsuario perfilUsuario, String nome, String sobrenome,String email, String senha){
+    public Usuario(String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, int departamentoId){
         this.departamentoId = departamentoId;
         this.perfilUsuario = perfilUsuario;
         this.nome = nome;

@@ -17,65 +17,64 @@ public class UsuariosDAO {
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
         Statement stm = connection.createStatement();
-
-        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios");
-
+        stm.execute("SELECT * FROM mydb.usuarios");
         ResultSet rst = stm.getResultSet();
-
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         
-
+        
         while(rst.next()){
             Integer pkid = rst.getInt("pk_id");
-            
             String nome = rst.getString("nome");
             String sobrenome = rst.getString("sobrenome");
-            
             String email = rst.getString("email");
-
-            Integer perfilUsuarioId = rst.getInt("perfilusuario");
-
+            Integer perfilUsuarioInt = rst.getInt("perfilusuario");
             String senha = rst.getString("senha");
-
             Integer departamentoId = rst.getInt("departamentoid");
 
-            PerfilUsuario perfilUsuario = null;
+            PerfilUsuario perfilUsuario;
 
-            switch(perfilUsuarioId){
+            switch(perfilUsuarioInt){
                 case 1:
                     perfilUsuario = PerfilUsuario.ADMIN;
                     break;
+
                 case 2:
                     perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
                     break;
+
                 case 3:
                     perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
                     break;
+
                 case 4:
                     perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
                     break;
+
                 case 5:
                     perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
                     break;
+
                 case 6:
                     perfilUsuario = PerfilUsuario.ANALISTATI;
                     break;
+
                 default:
+                    perfilUsuario = PerfilUsuario.ADMIN;
                     break;
+
             }
 
+            Usuario usuario = new Usuario(nome, sobrenome, email, perfilUsuario, senha, departamentoId);
+            usuarios.add(usuario);
 
             System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
 
-            Usuario usuario = new Usuario(departamentoId, perfilUsuario, nome, sobrenome, email, senha);
-
-            usuarios.add(usuario);
-
+        }
+            connection.close();
+            return usuarios;
         }
 
-        connection.close();
-        return usuarios;
-    }
+    
 
     public Usuario retrieve(Integer id) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
