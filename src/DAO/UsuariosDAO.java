@@ -35,6 +35,8 @@ public class UsuariosDAO {
 
             Integer perfilUsuarioId = rst.getInt("perfilusuario");
 
+            String senha = rst.getString("senha");
+
             Integer departamentoId = rst.getInt("departamentoid");
 
             PerfilUsuario perfilUsuario = null;
@@ -65,7 +67,7 @@ public class UsuariosDAO {
 
             System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
 
-            Usuario usuario = new Usuario(pkid, departamentoId, perfilUsuario, nome, sobrenome, email);
+            Usuario usuario = new Usuario(departamentoId, perfilUsuario, nome, sobrenome, email, senha);
 
             usuarios.add(usuario);
 
