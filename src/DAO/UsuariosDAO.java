@@ -80,61 +80,69 @@ public class UsuariosDAO {
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
 
-        Statement stm = connection.createStatement();
+        
 
-        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios WHERE pk_id = " + id);
+        String sql = "SELECT * FROM mydb.usuarios WHERE pk_id = ?";
 
-        ResultSet rst = stm.getResultSet();
         Usuario usuario = new Usuario();
+        
 
-        while(rst.next()){
-            while(rst.next()){
-                Integer pkid = rst.getInt("pk_id");
-                String nome = rst.getString("nome");
-                String sobrenome = rst.getString("sobrenome");
+        try(PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(1, id);
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
+            
+                while(prst.next()){
+                    Integer pkid = prst.getInt("pk_id");
+                    String nome = prst.getString("nome");
+                    String sobrenome = prst.getString("sobrenome");
+                    
+                    String email = prst.getString("email");
+    
+                    Integer perfilUsuarioId = prst.getInt("perfilusuario");
+    
+                    Integer departamentoId = prst.getInt("departamentoid");
+    
+                    PerfilUsuario perfilUsuario = null;
+    
+                    switch(perfilUsuarioId){
+                        case 1:
+                            perfilUsuario = PerfilUsuario.ADMIN;
+                            break;
+                        case 2:
+                            perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
+                            break;
+                        case 3:
+                            perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
+                            break;
+                        case 4:
+                            perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
+                            break;
+                        case 5:
+                            perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
+                            break;
+                        case 6:
+                            perfilUsuario = PerfilUsuario.ANALISTATI;
+                            break;
+                        default:
+                            break;
+                    }
+    
+    
+                    System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
+    
+                    usuario.setPk_id(pkid);
+                    usuario.setNome(nome);
+                    usuario.setSobrenome(sobrenome);
+                    usuario.setEmail(email);
+                    usuario.setPerfilUsuario(perfilUsuario);
+                    usuario.setDepartamentoId(departamentoId);
+    
                 
-                String email = rst.getString("email");
-
-                Integer perfilUsuarioId = rst.getInt("perfilusuario");
-
-                Integer departamentoId = rst.getInt("departamentoid");
-
-                PerfilUsuario perfilUsuario = null;
-
-                switch(perfilUsuarioId){
-                    case 1:
-                        perfilUsuario = PerfilUsuario.ADMIN;
-                        break;
-                    case 2:
-                        perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
-                        break;
-                    case 3:
-                        perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
-                        break;
-                    case 4:
-                        perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
-                        break;
-                    case 5:
-                        perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
-                        break;
-                    case 6:
-                        perfilUsuario = PerfilUsuario.ANALISTATI;
-                        break;
-                    default:
-                        break;
-                }
-
-
-                System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
-
-                usuario.setPk_id(pkid);
-                usuario.setNome(nome);
-                usuario.setSobrenome(sobrenome);
-                usuario.setEmail(email);
-                usuario.setPerfilUsuario(perfilUsuario);
-                usuario.setDepartamentoId(departamentoId);
-
             }
+
+            
         }
 
         connection.close();
@@ -147,47 +155,59 @@ public class UsuariosDAO {
 
         String sql = "INSERT INTO mydb.usuarios (nome, sobrenome, email, perfilusuario, senha, departamentoid) VALUES (?, ?, ?, ?, ?, ?)";
             
-        int perfilUsuarioInt = 0;
-
-       switch(usuario.getPerfilUsuario()){
-            case ADMIN:
-                perfilUsuarioInt = 1;
-                break;
-            
-            case GESTORCOMERCIAL:
-                perfilUsuarioInt = 2;
-                break;
-
-            case GESTOROPERACIONAL:
-                perfilUsuarioInt = 3;
-                break;
-
-            case ANALISTACOMERCIAL:
-                perfilUsuarioInt = 4;
-                break;
-
-            case ANALISTAOPERACAO:
-                perfilUsuarioInt = 5;
-                break;
-
-            case ANALISTATI:
-                perfilUsuarioInt = 6;
-                break;
-
-            default:
-                perfilUsuarioInt = 0;
-                break;
-       }
-
 
         try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
             
             pstm.setString(1, usuario.getNome());
             pstm.setString(2, usuario.getSobrenome());
             pstm.setString(3, usuario.getEmail());
-            pstm.setInt(4, perfilUsuarioInt);
+            pstm.setInt(4, usuario.getPerfilUsuario().ordinal() - 1);
             pstm.setString(5, usuario.getSenha());
             pstm.setInt(6, usuario.getDepartamentoId());
+
+            return pstm.execute();
+        }
+    }
+
+
+    public static boolean update(Usuario usuarioUpdate) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "UPDATE mydb.usuarios SET nome = ?, sobrenome = ?, email = ?, perfilusuario = ?, senha = ?, departamentoid = ?  WHERE pk_id = ?";
+            
+        Usuario usuario = new Usuario();
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(7, usuarioUpdate.getPk_id());
+
+            pstm.setString(1, usuarioUpdate.getNome());
+            pstm.setString(2, usuarioUpdate.getSobrenome());
+            pstm.setString(3, usuarioUpdate.getEmail());
+            pstm.setInt(4, usuarioUpdate.getPerfilUsuario().ordinal() - 1); //Menos um para igualar ao indice do banco de dados
+            pstm.setString(5, usuarioUpdate.getSenha());
+            pstm.setInt(6, usuarioUpdate.getDepartamentoId());
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
+
+            return pstm.execute();
+        }
+    }
+
+    public static boolean delete(Usuario usuarioDelete) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "DELETE FROM mydb.usuarios WHERE pk_id = ?";
+            
+        Usuario usuario = new Usuario();
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(1, usuarioDelete.getPk_id());
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
 
             return pstm.execute();
         }

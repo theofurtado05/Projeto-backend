@@ -7,6 +7,16 @@ public class Usuario {
 
 
     //CONSTRUTORES
+    public Usuario(int pk_id,String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, int departamentoId){
+        this.pk_id = pk_id;
+        this.departamentoId = departamentoId;
+        this.perfilUsuario = perfilUsuario;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.email = email;
+        this.senha = senha;
+    }
+
     public Usuario(String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, int departamentoId){
         this.departamentoId = departamentoId;
         this.perfilUsuario = perfilUsuario;
