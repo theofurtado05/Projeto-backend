@@ -13,7 +13,7 @@ public class Chamado {
     //CONSTRUTORES
     public Chamado(int pk_id, int usuarioAbriuId, int departamentoId, int usuarioAssumiuId, NivelUrgencia nivelUrgencia, StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
 
-        this.pk_id = pk_id;
+        // this.pk_id = pk_id;
         this.usuarioAbriuId = usuarioAbriuId;
         this.departamentoId = departamentoId;
         this.usuarioAssumiuId = usuarioAssumiuId;
@@ -27,6 +27,10 @@ public class Chamado {
 
     }
 
+
+    public Chamado(Integer usuarioidabriu, Integer departamentoid2, Integer statuschamadoid, String assunto2, String descricao2, Date dataabertura2, Date dataprazo2, Date datafechamamento, Integer nivelurgenciaid, Integer usuarioidassumiu){
+
+    }
 
     public Chamado(){
 
@@ -112,12 +116,19 @@ public class Chamado {
         this.dataFechamento = dataFechamento;
     }
 
+    public void setNivelUrgencia(Integer nivelurgencia){
+        this.nivelUrgencia = nivelUrgencia;
+    }
     public void setAssunto(String assunto){
         this.assunto = assunto;
     }
 
     public void setDescricao(String descricao){
         this.descricao = descricao;
+    }
+
+
+    public void setStatusChamadoid(Integer statuschamadoid) {
     }
 
 
