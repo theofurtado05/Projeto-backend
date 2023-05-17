@@ -1,5 +1,5 @@
 package model;
 
-public enum StatusChamado {
+public enum  StatusChamado {
     ABERTO, EMATENDIMENTO, PENDENTE, PAUSADO, FECHADO
 }

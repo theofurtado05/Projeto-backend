@@ -45,31 +45,8 @@ public class ChamadoDAO {
 
             Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
 
-            // PerfilUsuario perfilUsuario = null;
 
-            // switch(perfilUsuarioId){
-            //     case 1:
-            //         perfilUsuario = PerfilUsuario.ADMIN;
-            //         break;
-            //     case 2:
-            //         perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
-            //         break;
-            //     case 3:
-            //         perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
-            //         break;
-            //     case 4:
-            //         perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
-            //         break;
-            //     case 5:
-            //         perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
-            //         break;
-            //     case 6:
-            //         perfilUsuario = PerfilUsuario.ANALISTATI;
-            //         break;
-            //     default:
-            //         break;
-            // }
-
+         
 
             // System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
 
@@ -88,7 +65,7 @@ public class ChamadoDAO {
 
         Statement stm = connection.createStatement();
 
-        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios WHERE pk_id = " + id);
+        boolean resultado = stm.execute("SELECT * FROM mydb.chamados WHERE pk_id = " + id);
 
         ResultSet rst = stm.getResultSet();
         Chamado chamado = new Chamado();
@@ -188,6 +165,4 @@ public class ChamadoDAO {
 
         //     return pstm.execute();
         }
-    // }
-
-// }
+ 
