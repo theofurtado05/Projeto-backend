@@ -1,6 +1,7 @@
 package DAO;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -115,54 +116,53 @@ public class ChamadoDAO {
         return chamado;
     }
 
-    // public static boolean create(Chamado chamado) throws SQLException{
-    //     CriarConexao criarConexao = new CriarConexao();
-    //     Connection connection = criarConexao.recuperarConexao();
-
-    //     String sql = "INSERT INTO mydb.usuarios (nome, sobrenome, email, perfilusuario, senha, departamentoid) VALUES (?, ?, ?, ?, ?, ?)";
-            
-    //     int perfilUsuarioInt = 0;
-
-    //    switch(usuario.getPerfilUsuario()){
-    //         case ADMIN:
-    //             perfilUsuarioInt = 1;
-    //             break;
-            
-    //         case GESTORCOMERCIAL:
-    //             perfilUsuarioInt = 2;
-    //             break;
-
-    //         case GESTOROPERACIONAL:
-    //             perfilUsuarioInt = 3;
-    //             break;
-
-    //         case ANALISTACOMERCIAL:
-    //             perfilUsuarioInt = 4;
-    //             break;
-
-    //         case ANALISTAOPERACAO:
-    //             perfilUsuarioInt = 5;
-    //             break;
-
-    //         case ANALISTATI:
-    //             perfilUsuarioInt = 6;
-    //             break;
-
-    //         default:
-    //             perfilUsuarioInt = 0;
-    //             break;
-    //    }
-
-
-        // try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
-            
-        //     pstm.setString(1, usuario.getNome());
-        //     pstm.setString(2, usuario.getSobrenome());
-        //     pstm.setString(3, usuario.getEmail());
-        //     pstm.setInt(4, perfilUsuarioInt);
-        //     pstm.setString(5, usuario.getSenha());
-        //     pstm.setInt(6, usuario.getDepartamentoId());
-
-        //     return pstm.execute();
+        public static boolean delete(Chamado ChamadoDelete) throws SQLException{
+            CriarConexao criarConexao = new CriarConexao();
+            Connection connection = criarConexao.recuperarConexao();
+    
+            String sql = "DELETE FROM mydb.chamados WHERE pk_id = ?";
+                
+            Chamado chamado = new Chamado();
+    
+            try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+                pstm.setInt(1, ChamadoDelete.getPk_id());
+                pstm.execute();
+                ResultSet prst = pstm.getResultSet();
+    
+    
+                return pstm.execute();
+            }
         }
- 
+        
+    
+    public static boolean update(Chamado ChamadoUpdate) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "UPDATE mydb.chamados SET nome = ?, sobrenome = ?, email = ?, perfilusuario = ?, senha = ?, departamentoid = ?  WHERE pk_id = ?";
+            
+        Chamado chamado = new Chamado();
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(7, ChamadoUpdate.getPk_id());
+
+            pstm.setInt(1, chamado.getUsuarioAbriuId());
+            pstm.setInt(2, chamado.getDepartamentoId());
+            // pstm.setString(3, chamado.getStatusChamado());
+            pstm.setString(1, chamado.getAssunto());
+            pstm.setString(2, chamado.getDescricao());
+            pstm.setDate(3, chamado.getDataAbertura());
+            pstm.setDate(4, chamado.getDataPrazo());
+            pstm.setDate(5, chamado.getDataFechamento());
+            // pstm.setInt(6, chamado.getNivelUrgencia());
+            pstm.setInt(7, chamado.getUsuarioAssumiuId());
+            // pstm.setInt(6, ChamadoUpdate.getDepartamentoId());
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
+
+            return pstm.execute();
+        }
+    }}
+    
+    
