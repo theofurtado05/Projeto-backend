@@ -1,15 +1,16 @@
 package model;
 
 public class Usuario {
-    int pk_id, departamentoId;
+    int pk_id;
+    Departamento departamento;
     PerfilUsuario perfilUsuario;
     String nome, sobrenome, email, senha;
 
 
     //CONSTRUTORES
-    public Usuario(int pk_id,String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, int departamentoId){
+    public Usuario(int pk_id,String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, Departamento departamento){
         this.pk_id = pk_id;
-        this.departamentoId = departamentoId;
+        this.departamento = departamento;
         this.perfilUsuario = perfilUsuario;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -17,8 +18,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, int departamentoId){
-        this.departamentoId = departamentoId;
+    public Usuario(String nome, String sobrenome, String email, PerfilUsuario perfilUsuario, String senha, Departamento departamento){
+        this.departamento = departamento;
         this.perfilUsuario = perfilUsuario;
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -35,8 +36,8 @@ public class Usuario {
         return this.pk_id;
     }
     
-    public int getDepartamentoId(){
-        return this.departamentoId;
+    public Departamento getDepartamento(){
+        return this.departamento;
     }
 
     public PerfilUsuario getPerfilUsuario(){
@@ -64,8 +65,8 @@ public class Usuario {
         this.pk_id = pk_id;
     }
     
-    public void setDepartamentoId(int departamentoId){
-        this.departamentoId = departamentoId;
+    public void setDepartamentoId(Departamento departamento){
+        this.departamento = departamento;
     }
 
     public void setPerfilUsuario(PerfilUsuario perfilUsuario){
