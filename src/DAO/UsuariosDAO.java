@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.Departamento;
 import model.PerfilUsuario;
 import model.Usuario;
 
@@ -20,54 +21,36 @@ public class UsuariosDAO {
         stm.execute("SELECT * FROM mydb.usuarios");
         ResultSet rst = stm.getResultSet();
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        
+        Departamento departamento = new Departamento();
         
         while(rst.next()){
             Integer pkid = rst.getInt("pk_id");
             String nome = rst.getString("nome");
             String sobrenome = rst.getString("sobrenome");
             String email = rst.getString("email");
-            Integer perfilUsuarioInt = rst.getInt("perfilusuario");
+            Integer perfilUsuarioId = rst.getInt("perfilusuario");
             String senha = rst.getString("senha");
             Integer departamentoId = rst.getInt("departamentoid");
 
-            PerfilUsuario perfilUsuario;
+            departamento.setId(departamentoId);
 
-            switch(perfilUsuarioInt){
-                case 1:
-                    perfilUsuario = PerfilUsuario.ADMIN;
-                    break;
 
-                case 2:
-                    perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
-                    break;
+            PerfilUsuario perfilUsuario = null;
 
-                case 3:
-                    perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
-                    break;
-
-                case 4:
-                    perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
-                    break;
-
-                case 5:
-                    perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
-                    break;
-
-                case 6:
-                    perfilUsuario = PerfilUsuario.ANALISTATI;
-                    break;
-
-                default:
-                    perfilUsuario = PerfilUsuario.ADMIN;
-                    break;
-
+            for(int i = 0; i < PerfilUsuario.values().length; i++){
+                for(PerfilUsuario aux : PerfilUsuario.values()){
+                    if(aux.ordinal() == perfilUsuarioId - 1){
+                        perfilUsuario = aux;
+                    }
+                }
             }
 
-            Usuario usuario = new Usuario(nome, sobrenome, email, perfilUsuario, senha, departamentoId);
+            
+
+            Usuario usuario = new Usuario(nome, sobrenome, email, perfilUsuario, senha, departamento);
             usuarios.add(usuario);
 
-            System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
+            System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamento.getId());
 
         }
             connection.close();
@@ -85,6 +68,8 @@ public class UsuariosDAO {
         String sql = "SELECT * FROM mydb.usuarios WHERE pk_id = ?";
 
         Usuario usuario = new Usuario();
+
+        Departamento departamento = new Departamento();
         
 
         try(PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
@@ -103,33 +88,19 @@ public class UsuariosDAO {
                     Integer perfilUsuarioId = prst.getInt("perfilusuario");
     
                     Integer departamentoId = prst.getInt("departamentoid");
-    
+                    
+                    departamento.setId(departamentoId);
+
                     PerfilUsuario perfilUsuario = null;
-    
-                    switch(perfilUsuarioId){
-                        case 1:
-                            perfilUsuario = PerfilUsuario.ADMIN;
-                            break;
-                        case 2:
-                            perfilUsuario = PerfilUsuario.GESTORCOMERCIAL;
-                            break;
-                        case 3:
-                            perfilUsuario = PerfilUsuario.GESTOROPERACIONAL;
-                            break;
-                        case 4:
-                            perfilUsuario = PerfilUsuario.ANALISTACOMERCIAL;
-                            break;
-                        case 5:
-                            perfilUsuario = PerfilUsuario.ANALISTAOPERACAO;
-                            break;
-                        case 6:
-                            perfilUsuario = PerfilUsuario.ANALISTATI;
-                            break;
-                        default:
-                            break;
+
+            for(int i = 0; i < PerfilUsuario.values().length; i++){
+                for(PerfilUsuario aux : PerfilUsuario.values()){
+                    if(aux.ordinal() == perfilUsuarioId - 1){
+                        perfilUsuario = aux;
                     }
-    
-    
+                }
+            }
+
                     System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
     
                     usuario.setPk_id(pkid);
@@ -137,7 +108,7 @@ public class UsuariosDAO {
                     usuario.setSobrenome(sobrenome);
                     usuario.setEmail(email);
                     usuario.setPerfilUsuario(perfilUsuario);
-                    usuario.setDepartamentoId(departamentoId);
+                    usuario.setDepartamento(departamento);
     
                 
             }
@@ -163,7 +134,7 @@ public class UsuariosDAO {
             pstm.setString(3, usuario.getEmail());
             pstm.setInt(4, usuario.getPerfilUsuario().ordinal() - 1);
             pstm.setString(5, usuario.getSenha());
-            pstm.setInt(6, usuario.getDepartamentoId());
+            pstm.setInt(6, usuario.getDepartamento().getId());
 
             return pstm.execute();
         }
@@ -186,7 +157,7 @@ public class UsuariosDAO {
             pstm.setString(3, usuarioUpdate.getEmail());
             pstm.setInt(4, usuarioUpdate.getPerfilUsuario().ordinal() - 1); //Menos um para igualar ao indice do banco de dados
             pstm.setString(5, usuarioUpdate.getSenha());
-            pstm.setInt(6, usuarioUpdate.getDepartamentoId());
+            pstm.setInt(6, usuarioUpdate.getDepartamento().getId());
             pstm.execute();
             ResultSet prst = pstm.getResultSet();
 

@@ -65,7 +65,7 @@ public class Usuario {
         this.pk_id = pk_id;
     }
     
-    public void setDepartamentoId(Departamento departamento){
+    public void setDepartamento(Departamento departamento){
         this.departamento = departamento;
     }
 
