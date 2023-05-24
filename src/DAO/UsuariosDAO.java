@@ -35,17 +35,8 @@ public class UsuariosDAO {
             departamento.setId(departamentoId);
 
 
-            PerfilUsuario perfilUsuario = null;
+            PerfilUsuario perfilUsuario = PerfilUsuario.values()[perfilUsuarioId];
 
-            for(int i = 0; i < PerfilUsuario.values().length; i++){
-                for(PerfilUsuario aux : PerfilUsuario.values()){
-                    if(aux.ordinal() == perfilUsuarioId - 1){
-                        perfilUsuario = aux;
-                    }
-                }
-            }
-
-            
 
             Usuario usuario = new Usuario(nome, sobrenome, email, perfilUsuario, senha, departamento);
             usuarios.add(usuario);
@@ -91,15 +82,8 @@ public class UsuariosDAO {
                     
                     departamento.setId(departamentoId);
 
-                    PerfilUsuario perfilUsuario = null;
-
-            for(int i = 0; i < PerfilUsuario.values().length; i++){
-                for(PerfilUsuario aux : PerfilUsuario.values()){
-                    if(aux.ordinal() == perfilUsuarioId - 1){
-                        perfilUsuario = aux;
-                    }
-                }
-            }
+                    
+                    PerfilUsuario perfilUsuario = PerfilUsuario.values()[perfilUsuarioId];
 
                     System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
     

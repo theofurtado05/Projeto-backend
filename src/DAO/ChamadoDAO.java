@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Chamado;
+import model.StatusChamado;
 
 public class ChamadoDAO {
     
@@ -98,17 +99,18 @@ public class ChamadoDAO {
 
 
                 // System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
+
                 chamado.setPk_id(pkid);
-                chamado.setUsuarioAbriuId(usuarioidabriu);
-                chamado.setDepartamentoId(departamentoid);
-                chamado.setStatusChamadoid(statuschamadoid);
+                chamado.setUsuario();
+                chamado.setDepartamento();
+                chamado.setStatusChamado(StatusChamado.ABERTO);
                 chamado.setAssunto(assunto);
                 chamado.setDescricao(descricao);
                 chamado.setDataAbertura(dataabertura);
                 chamado.setDataPrazo(dataprazo);
                 chamado.setDataFechamento(datafechamamento);
-                chamado.setNivelUrgencia(nivelurgenciaid);
-                chamado.setUsuarioAssumiuId(usuarioidassumiu);
+                chamado.setNivelUrgencia();
+                chamado.setResponsavel();
             }
         }
 
@@ -146,8 +148,8 @@ public class ChamadoDAO {
         try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
             pstm.setInt(7, ChamadoUpdate.getPk_id());
 
-            pstm.setInt(1, chamado.getUsuarioAbriuId());
-            pstm.setInt(2, chamado.getDepartamentoId());
+            pstm.setInt(1, chamado.getUsuario().getPk_id());
+            pstm.setInt(2, chamado.getDepartamento().getId());
             // pstm.setString(3, chamado.getStatusChamado());
             pstm.setString(1, chamado.getAssunto());
             pstm.setString(2, chamado.getDescricao());
@@ -155,7 +157,7 @@ public class ChamadoDAO {
             pstm.setDate(4, chamado.getDataPrazo());
             pstm.setDate(5, chamado.getDataFechamento());
             // pstm.setInt(6, chamado.getNivelUrgencia());
-            pstm.setInt(7, chamado.getUsuarioAssumiuId());
+            pstm.setInt(7, chamado.getUsuario().getPk_id());
             // pstm.setInt(6, ChamadoUpdate.getDepartamentoId());
             pstm.execute();
             ResultSet prst = pstm.getResultSet();
@@ -174,15 +176,15 @@ public class ChamadoDAO {
 
         try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
             
-            pstm.setInt(1, chamado.getUsuarioAbriuId());
-            pstm.setInt(2, chamado.getDepartamentoId());
+            pstm.setInt(1, chamado.getUsuario().getPk_id());
+            pstm.setInt(2, chamado.getDepartamento().getId());
             pstm.setInt(3, chamado.getStatusChamado().ordinal());
             pstm.setString(4, chamado.getAssunto());
             pstm.setString(5, chamado.getDescricao());
             pstm.setDate(6, chamado.getDataAbertura());
             pstm.setDate(7, chamado.getDataPrazo());
             pstm.setInt(8, chamado.getNivelUrgencia().ordinal());
-            pstm.setInt(9, chamado.getUsuarioAssumiuId());
+            pstm.setInt(9, chamado.getResponsavel().getPk_id());
 
             return pstm.execute();
         }

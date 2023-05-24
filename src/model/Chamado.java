@@ -1,25 +1,26 @@
 package model;
 
 
+import java.io.ObjectInputFilter.Status;
 import java.sql.Date;
 
 public class Chamado<Urgencia> {
     private int pk_id;
     private Usuario usuario;
     private Departamento departamento;
-    private int usuarioAssumiuId;
-    private Urgencia urgencia;
-    private int  statusChamado;
+    private Usuario responsavel;
+    private NivelUrgencia nivelUrgencia;
+    private StatusChamado statusChamado;
     Date dataAbertura, dataPrazo, dataFechamento;
     String assunto, descricao;
 
     //CONSTRUTORES
-    public Chamado(int pk_id, Usuario usuario, Departamento departamento, Usuario Responsavel,Urgencia urgencia , StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
+    public Chamado(int pk_id, Usuario usuario, Departamento departamento, Usuario responsavel, NivelUrgencia nivelUrgencia , StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
 
-        // this.pk_id = pk_id;
-        this.usuarioAbriuId = usuarioAbriuId;
-        this.departamentoId = departamentoId;
-        this.usuarioAssumiuId = usuarioAssumiuId;
+        this.pk_id = pk_id;
+        this.usuario = usuario;
+        this.departamento = departamento;
+        this.responsavel = responsavel;
         this.nivelUrgencia = nivelUrgencia;
         this.statusChamado = statusChamado;
         this.dataAbertura = dataAbertura;
@@ -31,12 +32,20 @@ public class Chamado<Urgencia> {
     }
 
 
-    public Chamado(Integer usuarioidabriu, Integer departamentoid2, Integer statuschamadoid, String assunto2, String descricao2, Date dataabertura2, Date dataprazo2, Date datafechamamento, Integer nivelurgenciaid, Integer usuarioidassumiu){
-
+    public Chamado(Usuario usuario, Departamento departamento, Usuario responsavel, NivelUrgencia nivelUrgencia , StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
+        this.usuario = usuario;
+        this.departamento = departamento;
+        this.responsavel = responsavel;
+        this.nivelUrgencia = nivelUrgencia;
+        this.statusChamado = statusChamado;
+        this.dataAbertura = dataAbertura;
+        this.dataPrazo = dataPrazo;
+        this.dataFechamento = dataFechamento;
+        this.assunto = assunto;
+        this.descricao = descricao;
     }
 
     public Chamado(){
-
     }
 
 
@@ -45,14 +54,14 @@ public class Chamado<Urgencia> {
     public int getPk_id(){
         return this.pk_id;
     }
-    public int getUsuarioAbriuId(){
-        return this.usuarioAbriuId;
+    public Usuario getUsuario(){
+        return this.usuario;
     }
-    public int getDepartamentoId(){
-        return this.departamentoId;
+    public Departamento getDepartamento(){
+        return this.departamento;
     }
-    public int getUsuarioAssumiuId(){
-        return this.usuarioAssumiuId;
+    public Usuario getResponsavel(){
+        return this.responsavel;
     }
 
     public NivelUrgencia getNivelUrgencia(){
@@ -89,14 +98,14 @@ public class Chamado<Urgencia> {
     public void setPk_id(int pk_id){
         this.pk_id = pk_id;
     }
-    public void setUsuarioAbriuId(int usuarioAbriuId){
-        this.usuarioAbriuId = usuarioAbriuId;
+    public void setUsuario(Usuario usuario){
+        this.usuario = usuario;
     }
-    public void setDepartamentoId(int departamentoId){
-        this.departamentoId = departamentoId;
+    public void setDepartamento(Departamento departamento){
+        this.departamento = departamento;
     }
-    public void setUsuarioAssumiuId(int usuarioAbriuId){
-        this.usuarioAssumiuId = usuarioAbriuId;
+    public void setResponsavel(Usuario responsavel){
+        this.responsavel = responsavel;
     }
 
     public void getNivelUrgencia(NivelUrgencia nivelUrgencia){
@@ -119,7 +128,7 @@ public class Chamado<Urgencia> {
         this.dataFechamento = dataFechamento;
     }
 
-    public void setNivelUrgencia(Integer nivelurgencia){
+    public void setNivelUrgencia(NivelUrgencia nivelUrgencia){
         this.nivelUrgencia = nivelUrgencia;
     }
     public void setAssunto(String assunto){
@@ -131,8 +140,6 @@ public class Chamado<Urgencia> {
     }
 
 
-    public void setStatusChamadoid(Integer statuschamadoid) {
-    }
 
 
 }

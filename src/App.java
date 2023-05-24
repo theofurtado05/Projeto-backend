@@ -19,10 +19,10 @@ public class App {
         Date fechamento = null;
 
         ChamadoDAO chamadoDAO = new ChamadoDAO();
-        Chamado chamado1 = new Chamado(1, 2, StatusChamado.ABERTO.ordinal(), "MANUTENCAO TESTE", "TESTANDO ESSA MANUTENCAO SEM PENSAR NO AMANHA", null, null, null, NivelUrgencia.ALTO.ordinal(), 3);
+        //Chamado chamado1 = new Chamado(1, 2, StatusChamado.ABERTO.ordinal(), "MANUTENCAO TESTE", "TESTANDO ESSA MANUTENCAO SEM PENSAR NO AMANHA", null, null, null, NivelUrgencia.ALTO.ordinal(), 3);
 
 
-        chamadoDAO.create(chamado1);
+        //chamadoDAO.create(chamado1);
        
 
     }
