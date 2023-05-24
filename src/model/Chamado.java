@@ -3,15 +3,18 @@ package model;
 
 import java.sql.Date;
 
-public class Chamado {
-    int pk_id, usuarioAbriuId, departamentoId, usuarioAssumiuId;
-    NivelUrgencia nivelUrgencia;
-    StatusChamado statusChamado;
+public class Chamado<Urgencia> {
+    private int pk_id;
+    private Usuario usuario;
+    private Departamento departamento;
+    private int usuarioAssumiuId;
+    private Urgencia urgencia;
+    private int  statusChamado;
     Date dataAbertura, dataPrazo, dataFechamento;
     String assunto, descricao;
 
     //CONSTRUTORES
-    public Chamado(int pk_id, int usuarioAbriuId, int departamentoId, int usuarioAssumiuId, NivelUrgencia nivelUrgencia, StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
+    public Chamado(int pk_id, Usuario usuario, Departamento departamento, Usuario Responsavel,Urgencia urgencia , StatusChamado statusChamado, Date dataAbertura, Date dataPrazo, Date dataFechamento, String assunto, String descricao){
 
         // this.pk_id = pk_id;
         this.usuarioAbriuId = usuarioAbriuId;
