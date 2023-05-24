@@ -116,23 +116,23 @@ public class ChamadoDAO {
         return chamado;
     }
 
-        public static boolean delete(Chamado ChamadoDelete) throws SQLException{
-            CriarConexao criarConexao = new CriarConexao();
-            Connection connection = criarConexao.recuperarConexao();
-    
-            String sql = "DELETE FROM mydb.chamados WHERE pk_id = ?";
-                
-            Chamado chamado = new Chamado();
-    
-            try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
-                pstm.setInt(1, ChamadoDelete.getPk_id());
-                pstm.execute();
-                ResultSet prst = pstm.getResultSet();
-    
-    
-                return pstm.execute();
-            }
+    public static boolean delete(Chamado ChamadoDelete) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "DELETE FROM mydb.chamados WHERE pk_id = ?";
+            
+        Chamado chamado = new Chamado();
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(1, ChamadoDelete.getPk_id());
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
+
+            return pstm.execute();
         }
+    }
         
     
     public static boolean update(Chamado ChamadoUpdate) throws SQLException{
@@ -163,6 +163,30 @@ public class ChamadoDAO {
 
             return pstm.execute();
         }
-    }}
+    }
+
+    public static boolean create(Chamado chamado) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "INSERT INTO mydb.chamados (usuarioidabriu, departamentoid, statuschamadoid, assunto, descricao, dataabertura, dataprazo, datafechamento, nivelurgenciaid, usuarioidassumiu) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            
+            pstm.setInt(1, chamado.getUsuarioAbriuId());
+            pstm.setInt(2, chamado.getDepartamentoId());
+            pstm.setInt(3, chamado.getStatusChamado().ordinal());
+            pstm.setString(4, chamado.getAssunto());
+            pstm.setString(5, chamado.getDescricao());
+            pstm.setDate(6, chamado.getDataAbertura());
+            pstm.setDate(7, chamado.getDataPrazo());
+            pstm.setInt(8, chamado.getNivelUrgencia().ordinal());
+            pstm.setInt(9, chamado.getUsuarioAssumiuId());
+
+            return pstm.execute();
+        }
+    }
+}
     
     
