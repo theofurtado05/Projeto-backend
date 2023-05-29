@@ -52,9 +52,9 @@ public class ChamadoDAO {
 
             // System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
 
-            Chamado chamado = new Chamado(usuarioidabriu, departamentoid, statuschamadoid, assunto, descricao, dataabertura,dataprazo, datafechamamento, nivelurgenciaid,usuarioidassumiu);
+            // Chamado chamado = new Chamado(usuarioidabriu, departamentoid, statuschamadoid, assunto, descricao, dataabertura,dataprazo, datafechamamento, nivelurgenciaid,usuarioidassumiu);
 
-            usuarios.add(chamado);
+            // usuarios.add(chamado);
         }
 
         connection.close();

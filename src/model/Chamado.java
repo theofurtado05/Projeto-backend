@@ -101,7 +101,7 @@ public class Chamado<Urgencia> {
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
-    public void setDepartamento(Departamento departamento){
+    public void setDepartamento(){
         this.departamento = departamento;
     }
     public void setResponsavel(Usuario responsavel){
@@ -137,6 +137,18 @@ public class Chamado<Urgencia> {
 
     public void setDescricao(String descricao){
         this.descricao = descricao;
+    }
+
+
+    public void setUsuario() {
+    }
+
+
+    public void setNivelUrgencia() {
+    }
+
+
+    public void setResponsavel() {
     }
 
 

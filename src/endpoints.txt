@@ -1,0 +1,20 @@
+
+
+
+Endpoints
+
+HTTP POST
+
+ /CriarChamado
+ /CriarUsuario
+ /AtualizarChamado {statusChamado} {datafechamamento} {nivelUrgencia}
+ /AtualizarUsuario {departamento} {perfilUsuario}
+ /AtualizarDepartamento 
+ 
+
+
+ HTTP GET
+
+/Chamado {departamento} {usuario} {statusChamado} {nivelUrgencia} {dataAbertura} {datafechamamento}
+
+/Usuario {departamento} {chamado} {perfilUsuario}
