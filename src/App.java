@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 import Controle.ChamadoControle;
@@ -19,15 +20,25 @@ public class App {
 
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataabertura = new Date(05/06/2023);
+        Date dataprazo = new Date(8/06/2023);
+        Date datafechamento = new Date(07/06/2023);
        
         ChamadoControle cControle = new ChamadoControle(connection);
         UsuarioControle uControle = new UsuarioControle(connection);
 
         Departamento departamento = new Departamento(3,"TI");
 
-        Usuario usuario = new Usuario(32, "Heitor", "Mauricio", "heitorfurtado05@gmail.com", PerfilUsuario.ADMIN, "123", departamento);
+        Usuario usuario = new Usuario(10);
 
-        System.out.println(uControle.deleteUsuario(usuario));
+        Usuario responsavel = new Usuario(11);
+
+        
+
+        Chamado chamado = new Chamado(24,usuario, departamento, responsavel, NivelUrgencia.BAIXO, StatusChamado.PENDENTE, dataabertura, dataprazo, datafechamento, "Testando controles 2", "Esse controle de criar chamado esta funcionando.");
+
+        System.out.println(cControle.deleteChamado(chamado));
        
 
     }

@@ -27,6 +27,9 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public Usuario(int pk_id){
+        this.pk_id = pk_id;
+    }
     public Usuario(){
 
     }
@@ -91,7 +94,8 @@ public class Usuario {
 
     @Override
     public String toString(){
-        return "\nNome completo: " + this.nome + " " + this.sobrenome
+        return "\nId: " + this.pk_id 
+            + "\nNome completo: " + this.nome + " " + this.sobrenome
             + "\nEmail: " + this.email
             + "\nDepartamento: " + this.departamento.getId()
             + "\nPerfil Usuario: " + this.perfilUsuario

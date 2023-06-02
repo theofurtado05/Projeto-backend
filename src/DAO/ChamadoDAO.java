@@ -76,40 +76,41 @@ public class ChamadoDAO {
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
 
-        Statement stm = connection.createStatement();
+        String sql = "SELECT * FROM mydb.chamados WHERE pk_id = ?";
 
-        boolean resultado = stm.execute("SELECT * FROM mydb.chamados WHERE pk_id = " + id);
-
-        ResultSet rst = stm.getResultSet();
         Chamado chamado = new Chamado();
-        
+
         Usuario usuario = new Usuario();
         Usuario responsavel = new Usuario();
         Departamento departamento = new Departamento();
 
-        while(rst.next()){
-            while(rst.next()){
-                Integer pkid = rst.getInt("pk_id");
+       try(PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+        pstm.setInt(1, id);
+        pstm.execute();
+        ResultSet prst = pstm.getResultSet();
+
+            while(prst.next()){
+                Integer pkid = prst.getInt("pk_id");
             
-                Integer usuarioidabriu = rst.getInt("usuarioidabriu");
+                Integer usuarioidabriu = prst.getInt("usuarioidabriu");
 
-                Integer departamentoid = rst.getInt("departamentoid");
+                Integer departamentoid = prst.getInt("departamentoid");
                 
-                Integer statuschamadoid = rst.getInt("statuschamadoid");
+                Integer statuschamadoid = prst.getInt("statuschamadoid");
 
-                String assunto = rst.getString("assunto");
+                String assunto = prst.getString("assunto");
 
-                String descricao = rst.getString("descricao");
+                String descricao = prst.getString("descricao");
 
-                Date dataabertura = rst.getDate("dataabertura");
+                Date dataabertura = prst.getDate("dataabertura");
 
-                Date dataprazo = rst.getDate("dataprazo");
+                Date dataprazo = prst.getDate("dataprazo");
 
-                Date datafechamamento = rst.getDate("datafechamento");
+                Date datafechamamento = prst.getDate("datafechamento");
 
-                Integer nivelurgenciaid = rst.getInt("nivelurgenciaid");
+                Integer nivelurgenciaid = prst.getInt("nivelurgenciaid");
 
-                Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
+                Integer usuarioidassumiu = prst.getInt("usuarioidassumiu");
 
                 
                 usuario.setPk_id(usuarioidabriu);                
@@ -129,6 +130,7 @@ public class ChamadoDAO {
                 chamado.setResponsavel(responsavel);
                 
             }
+       
         }
 
         connection.close();
@@ -154,28 +156,27 @@ public class ChamadoDAO {
     }
         
     
-    public static boolean update(Chamado ChamadoUpdate) throws SQLException{
+    public static boolean update(Chamado chamadoUpdate) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
 
-        String sql = "UPDATE mydb.chamados SET nome = ?, sobrenome = ?, email = ?, perfilusuario = ?, senha = ?, departamentoid = ?  WHERE pk_id = ?";
+        String sql = "UPDATE mydb.chamados SET usuarioidabriu = ?, departamentoid = ?, statuschamadoid = ?, assunto = ?, descricao = ?, dataabertura = ?, dataprazo = ?, datafechamento = ?, nivelurgenciaid = ?, usuarioidassumiu = ? WHERE pk_id = ?";
             
         Chamado chamado = new Chamado();
 
         try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
-            pstm.setInt(7, ChamadoUpdate.getPk_id());
+            pstm.setInt(11, chamadoUpdate.getPk_id());
 
-            pstm.setInt(1, chamado.getUsuario().getPk_id());
-            pstm.setInt(2, chamado.getDepartamento().getId());
-            // pstm.setString(3, chamado.getStatusChamado());
-            pstm.setString(1, chamado.getAssunto());
-            pstm.setString(2, chamado.getDescricao());
-            pstm.setDate(3, chamado.getDataAbertura());
-            pstm.setDate(4, chamado.getDataPrazo());
-            pstm.setDate(5, chamado.getDataFechamento());
-            // pstm.setInt(6, chamado.getNivelUrgencia());
-            pstm.setInt(7, chamado.getUsuario().getPk_id());
-            // pstm.setInt(6, ChamadoUpdate.getDepartamentoId());
+            pstm.setInt(1, chamadoUpdate.getUsuario().getPk_id());
+            pstm.setInt(2, chamadoUpdate.getDepartamento().getId());
+            pstm.setInt(3, chamadoUpdate.getStatusChamado().ordinal());
+            pstm.setString(4, chamadoUpdate.getAssunto());
+            pstm.setString(5, chamadoUpdate.getDescricao());
+            pstm.setDate(6, chamadoUpdate.getDataAbertura());
+            pstm.setDate(7, chamadoUpdate.getDataPrazo());
+            pstm.setDate(8, chamadoUpdate.getDataFechamento());
+            pstm.setInt(9, chamadoUpdate.getNivelUrgencia().ordinal());
+            pstm.setInt(10, chamadoUpdate.getResponsavel().getPk_id());
             pstm.execute();
             ResultSet prst = pstm.getResultSet();
 
@@ -200,8 +201,10 @@ public class ChamadoDAO {
             pstm.setString(5, chamado.getDescricao());
             pstm.setDate(6, chamado.getDataAbertura());
             pstm.setDate(7, chamado.getDataPrazo());
-            pstm.setInt(8, chamado.getNivelUrgencia().ordinal());
-            pstm.setInt(9, chamado.getResponsavel().getPk_id());
+            pstm.setDate(8, chamado.getDataFechamento());
+            pstm.setInt(9, chamado.getNivelUrgencia().ordinal());
+            pstm.setInt(10, chamado.getResponsavel().getPk_id());
+           
 
             return pstm.execute();
         }

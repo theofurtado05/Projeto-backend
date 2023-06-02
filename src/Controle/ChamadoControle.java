@@ -20,23 +20,42 @@ public class ChamadoControle {
         this.connection = conexao.recuperarConexao();   
     }
 
-    //RetrieveAll
+
     public ArrayList<Chamado> getTodosChamados() throws SQLException{
 
         ChamadoDAO cDao = new ChamadoDAO();
         return cDao.retrieveAll();
     }
 
-    //Retrieve
+
     public Chamado getChamadoId(Integer id) throws SQLException{
 
         ChamadoDAO cDao = new ChamadoDAO();
         return cDao.retrieve(id);
     }
     
-    //Create
-    //Update
-    //Delete
+    public boolean createChamado(Chamado chamado) throws SQLException{
+        ChamadoDAO cDao = new ChamadoDAO();
+        cDao.create(chamado);
+        System.out.println("Chamado criado com sucesso!");
+        return true;
+    }
+
+    public boolean updateChamado(Chamado chamado) throws SQLException{
+        ChamadoDAO cDao = new ChamadoDAO();
+        cDao.update(chamado);
+        System.out.println("Chamado atualizado com sucesso!");
+        return true;
+    }
+
+    public boolean deleteChamado(Chamado chamado) throws SQLException{
+        ChamadoDAO cDao = new ChamadoDAO();
+        cDao.delete(chamado);
+        System.out.println("Chamado deletado com sucesso!");
+        return true;
+    }
+
+
     //Outros selects
     
 
