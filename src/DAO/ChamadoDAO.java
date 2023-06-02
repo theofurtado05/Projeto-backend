@@ -82,40 +82,43 @@ public class ChamadoDAO {
 
         ResultSet rst = stm.getResultSet();
         Chamado chamado = new Chamado();
+        
+        Usuario usuario = new Usuario();
+        Usuario responsavel = new Usuario();
+        Departamento departamento = new Departamento();
 
         while(rst.next()){
             while(rst.next()){
                 Integer pkid = rst.getInt("pk_id");
             
-            Integer usuarioidabriu = rst.getInt("usuarioidabriu");
+                Integer usuarioidabriu = rst.getInt("usuarioidabriu");
 
-            Integer departamentoid = rst.getInt("departamentoid");
-            
-            Integer statuschamadoid = rst.getInt("statuschamadoid");
+                Integer departamentoid = rst.getInt("departamentoid");
+                
+                Integer statuschamadoid = rst.getInt("statuschamadoid");
 
-            String assunto = rst.getString("assunto");
+                String assunto = rst.getString("assunto");
 
-            String descricao = rst.getString("descricao");
+                String descricao = rst.getString("descricao");
 
-            Date dataabertura = rst.getDate("dataabertura");
+                Date dataabertura = rst.getDate("dataabertura");
 
-            Date dataprazo = rst.getDate("dataprazo");
+                Date dataprazo = rst.getDate("dataprazo");
 
-            Date datafechamamento = rst.getDate("datafechamento");
+                Date datafechamamento = rst.getDate("datafechamento");
 
-            Integer nivelurgenciaid = rst.getInt("urgenciaid");
+                Integer nivelurgenciaid = rst.getInt("nivelurgenciaid");
 
-            Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
+                Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
 
-                Usuario usuario = new Usuario();
-                usuario.setPk_id(usuarioidabriu);
-
-                Usuario responsavel = new Usuario();
+                
+                usuario.setPk_id(usuarioidabriu);                
                 responsavel.setPk_id(usuarioidassumiu);
+                departamento.setId(departamentoid);
 
                 chamado.setPk_id(pkid);
                 chamado.setUsuario(usuario);
-                chamado.setDepartamento();
+                chamado.setDepartamento(departamento);
                 chamado.setStatusChamado(StatusChamado.values()[statuschamadoid - 1]);
                 chamado.setAssunto(assunto);
                 chamado.setDescricao(descricao);
@@ -124,6 +127,7 @@ public class ChamadoDAO {
                 chamado.setDataFechamento(datafechamamento);
                 chamado.setNivelUrgencia(NivelUrgencia.values()[nivelurgenciaid - 1]);
                 chamado.setResponsavel(responsavel);
+                
             }
         }
 

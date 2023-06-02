@@ -98,7 +98,7 @@ public class Chamado<Urgencia> {
     public void setUsuario(Usuario usuario){
         this.usuario = usuario;
     }
-    public void setDepartamento(){
+    public void setDepartamento(Departamento departamento){
         this.departamento = departamento;
     }
     public void setResponsavel(Usuario responsavel){

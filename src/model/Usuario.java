@@ -89,4 +89,13 @@ public class Usuario {
         this.senha = senha;
     }
 
+    @Override
+    public String toString(){
+        return "\nNome completo: " + this.nome + " " + this.sobrenome
+            + "\nEmail: " + this.email
+            + "\nDepartamento: " + this.departamento.getId()
+            + "\nPerfil Usuario: " + this.perfilUsuario
+            + "\n";
+    }
+   
 }

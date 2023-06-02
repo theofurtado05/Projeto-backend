@@ -18,8 +18,11 @@ public class UsuariosDAO {
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
         Statement stm = connection.createStatement();
-        stm.execute("SELECT * FROM mydb.usuarios");
+
+        boolean resultado = stm.execute("SELECT * FROM mydb.usuarios");
+
         ResultSet rst = stm.getResultSet();
+
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         Departamento departamento = new Departamento();
         
@@ -35,15 +38,17 @@ public class UsuariosDAO {
             departamento.setId(departamentoId);
 
 
-            PerfilUsuario perfilUsuario = PerfilUsuario.values()[perfilUsuarioId];
+            PerfilUsuario perfilUsuario = PerfilUsuario.values()[perfilUsuarioId - 1];
 
 
             Usuario usuario = new Usuario(nome, sobrenome, email, perfilUsuario, senha, departamento);
+
+            
+            System.out.println(usuario.toString());
             usuarios.add(usuario);
 
-            System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamento.getId());
-
         }
+
             connection.close();
             return usuarios;
         }
@@ -53,8 +58,6 @@ public class UsuariosDAO {
     public Usuario retrieve(Integer id) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
-
-        
 
         String sql = "SELECT * FROM mydb.usuarios WHERE pk_id = ?";
 
@@ -116,7 +119,7 @@ public class UsuariosDAO {
             pstm.setString(1, usuario.getNome());
             pstm.setString(2, usuario.getSobrenome());
             pstm.setString(3, usuario.getEmail());
-            pstm.setInt(4, usuario.getPerfilUsuario().ordinal() - 1);
+            pstm.setInt(4, usuario.getPerfilUsuario().ordinal() + 1);
             pstm.setString(5, usuario.getSenha());
             pstm.setInt(6, usuario.getDepartamento().getId());
 
@@ -139,7 +142,7 @@ public class UsuariosDAO {
             pstm.setString(1, usuarioUpdate.getNome());
             pstm.setString(2, usuarioUpdate.getSobrenome());
             pstm.setString(3, usuarioUpdate.getEmail());
-            pstm.setInt(4, usuarioUpdate.getPerfilUsuario().ordinal() - 1); //Menos um para igualar ao indice do banco de dados
+            pstm.setInt(4, usuarioUpdate.getPerfilUsuario().ordinal() + 1); //Menos um para igualar ao indice do banco de dados
             pstm.setString(5, usuarioUpdate.getSenha());
             pstm.setInt(6, usuarioUpdate.getDepartamento().getId());
             pstm.execute();

@@ -28,6 +28,11 @@ public class ChamadoControle {
     }
 
     //Retrieve
+    public Chamado getChamadoId(Integer id) throws SQLException{
+
+        ChamadoDAO cDao = new ChamadoDAO();
+        return cDao.retrieve(id);
+    }
     
     //Create
     //Update
