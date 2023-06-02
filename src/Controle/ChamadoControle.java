@@ -15,20 +15,16 @@ public class ChamadoControle {
 
     private Connection connection;
 
-    public void ChamadoControleDAO(Connection connection) throws SQLException{
+    public ChamadoControle(Connection connection) throws SQLException{
         CriarConexao conexao = new CriarConexao();
-        this.connection = conexao.recuperarConexao();
-        
+        this.connection = conexao.recuperarConexao();   
     }
 
     //RetrieveAll
-    public ArrayList<Chamado> getTodosChamados(){
+    public ArrayList<Chamado> getTodosChamados() throws SQLException{
 
-        // ChamadoDAO chamadoDao = new ChamadoControleDAO(this.connection);
-       
-        
-
-        // return chamadoDao.retrieveAll();
+        ChamadoDAO cDao = new ChamadoDAO();
+        return cDao.retrieveAll();
     }
 
     //Retrieve

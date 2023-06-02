@@ -15,7 +15,7 @@ import model.Usuario;
 
 public class ChamadoDAO {
     
-    public boolean retrieveAll() throws SQLException{
+    public ArrayList<Chamado> retrieveAll() throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
         Statement stm = connection.createStatement();
@@ -24,8 +24,10 @@ public class ChamadoDAO {
 
         ResultSet rst = stm.getResultSet();
 
-        ArrayList<Chamado> usuarios = new ArrayList<Chamado>();
-        
+        ArrayList<Chamado> chamados = new ArrayList<Chamado>();
+        Usuario usuario = new Usuario();
+        Usuario responsavel = new Usuario();
+        Departamento departamento = new Departamento();
 
         while(rst.next()){
             Integer pkid = rst.getInt("pk_id");
@@ -46,22 +48,28 @@ public class ChamadoDAO {
 
             Date datafechamamento = rst.getDate("datafechamento");
 
-            Integer nivelurgenciaid = rst.getInt("urgenciaid");
+            Integer nivelurgenciaid = rst.getInt("nivelurgenciaid");
 
             Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
 
 
-         
+            usuario.setPk_id(usuarioidabriu);
+            responsavel.setPk_id(usuarioidassumiu);
+            departamento.setId(departamentoid);
 
-            // System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
+            
 
-            // Chamado chamado = new Chamado(usuarioidabriu, departamentoid, statuschamadoid, assunto, descricao, dataabertura,dataprazo, datafechamamento, nivelurgenciaid,usuarioidassumiu);
+            Chamado chamado = new Chamado(usuario, departamento, responsavel, NivelUrgencia.values()[nivelurgenciaid - 1], StatusChamado.values()[statuschamadoid - 1], dataabertura, dataprazo, datafechamamento, assunto, descricao);
 
-            // usuarios.add(chamado);
+            System.out.println(chamado.toString());
+
+            chamados.add(chamado);
         }
+        
+        
 
         connection.close();
-        return resultado;
+        return chamados;
     }
 
     public Chamado retrieve(Integer id) throws SQLException{

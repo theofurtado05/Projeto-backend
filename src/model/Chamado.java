@@ -136,10 +136,6 @@ public class Chamado<Urgencia> {
         this.descricao = descricao;
     }
 
-
-   
-
-
     public void setNivelUrgencia() {
     }
 
@@ -147,6 +143,31 @@ public class Chamado<Urgencia> {
     public void setResponsavel() {
     }
 
+
+    //toString
+   @Override
+   public String toString(){
+    return "Usuario: " + this.usuario.getPk_id()
+        +  "\nDepartamento: " + this.departamento.getId()
+        +  "\nResponsavel: " + this.responsavel.getPk_id()
+        +  "\nNivel de Urgencia: " + this.nivelUrgencia
+        +  "\nStatus de Chamado: " + this.statusChamado
+        +  "\nData de Abertura: " + this.dataAbertura
+        +  "\nData de Prazo: " + this.dataPrazo
+        +  "\nData de Fechamento: " + this.dataFechamento
+        +  "\nAssunto: " + this.assunto
+        +  "\nDescricao: " + this.descricao
+        + "\n\n\n"; 
+   }
+
+    // private int pk_id;
+    // private Usuario usuario;
+    // private Departamento departamento;
+    // private Usuario responsavel;
+    // private NivelUrgencia nivelUrgencia;
+    // private StatusChamado statusChamado;
+    // Date dataAbertura, dataPrazo, dataFechamento;
+    // String assunto, descricao;
 
 
 
