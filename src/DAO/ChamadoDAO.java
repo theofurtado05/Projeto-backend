@@ -8,7 +8,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Chamado;
+import model.Departamento;
+import model.NivelUrgencia;
 import model.StatusChamado;
+import model.Usuario;
 
 public class ChamadoDAO {
     
@@ -96,21 +99,23 @@ public class ChamadoDAO {
 
             Integer usuarioidassumiu = rst.getInt("usuarioidassumiu");
 
+                Usuario usuario = new Usuario();
+                usuario.setPk_id(usuarioidabriu);
 
-
-                // System.out.println(pkid + " Nome: " + nome + " Sobrenome: " + sobrenome + " Email: " + email + " Perfil Usuario: " + perfilUsuario + " DepartamentoId: " + departamentoId);
+                Usuario responsavel = new Usuario();
+                responsavel.setPk_id(usuarioidassumiu);
 
                 chamado.setPk_id(pkid);
-                chamado.setUsuario();
+                chamado.setUsuario(usuario);
                 chamado.setDepartamento();
-                chamado.setStatusChamado(StatusChamado.ABERTO);
+                chamado.setStatusChamado(StatusChamado.values()[statuschamadoid - 1]);
                 chamado.setAssunto(assunto);
                 chamado.setDescricao(descricao);
                 chamado.setDataAbertura(dataabertura);
                 chamado.setDataPrazo(dataprazo);
                 chamado.setDataFechamento(datafechamamento);
-                chamado.setNivelUrgencia();
-                chamado.setResponsavel();
+                chamado.setNivelUrgencia(NivelUrgencia.values()[nivelurgenciaid - 1]);
+                chamado.setResponsavel(responsavel);
             }
         }
 
@@ -189,6 +194,30 @@ public class ChamadoDAO {
             return pstm.execute();
         }
     }
+
+
+    /*SELECTS*/
+    public ArrayList<Chamado> buscaPorSetor(Departamento departamento) throws SQLException{
+
+        ArrayList<Chamado> chamados = new ArrayList<Chamado>();
+
+
+        //passar json no return
+        return chamados;
+    }
+
+    public int numChamadosPorStatus(StatusChamado status) throws SQLException{
+        int numChamados = 0;
+        //where setor e where status,
+        //group by data
+
+        return numChamados;
+    }
+
+
+
+
+
 }
     
     

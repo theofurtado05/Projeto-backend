@@ -1,7 +1,5 @@
 package model;
 
-
-import java.io.ObjectInputFilter.Status;
 import java.sql.Date;
 
 public class Chamado<Urgencia> {
@@ -47,7 +45,6 @@ public class Chamado<Urgencia> {
 
     public Chamado(){
     }
-
 
 
     //GETTERS
@@ -140,8 +137,7 @@ public class Chamado<Urgencia> {
     }
 
 
-    public void setUsuario() {
-    }
+   
 
 
     public void setNivelUrgencia() {
