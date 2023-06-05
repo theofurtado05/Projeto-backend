@@ -230,6 +230,25 @@ public class ChamadoDAO {
     }
 
 
+//     /*Chamados por status*/
+// select count(*) from mydb.chamados
+// where statuschamadoid = 1
+
+// /*Chamados por data de abertura agrupado por status*/
+// select count(*), statuschamadoid from mydb.chamados
+// where dataabertura = '2023-05-03'
+// group by statuschamadoid
+
+
+// /*Chamados por status agrupado por data*/
+// select count(*), dataabertura from mydb.chamados
+// where statuschamadoid = 1
+// group by dataabertura
+
+// /**/
+
+
+
 
 
 
