@@ -25,7 +25,7 @@ public class App {
         Date dataprazo = new Date(8/06/2023);
         Date datafechamento = new Date(07/06/2023);
        
-        ChamadoControle cControle = new ChamadoControle(connection);
+        ChamadoControle cControle = new ChamadoControle();
         UsuarioControle uControle = new UsuarioControle(connection);
 
         Departamento departamento = new Departamento(3,"TI");
@@ -36,9 +36,7 @@ public class App {
 
         
 
-        Chamado chamado = new Chamado(24,usuario, departamento, responsavel, NivelUrgencia.BAIXO, StatusChamado.PENDENTE, dataabertura, dataprazo, datafechamento, "Testando controles 2", "Esse controle de criar chamado esta funcionando.");
-
-        System.out.println(cControle.deleteChamado(chamado));
+        System.out.println(cControle.getNumChamadosPorStatus(StatusChamado.PAUSADO)); 
        
 
     }

@@ -230,15 +230,44 @@ public class ChamadoDAO {
     public int numChamadosPorStatus(StatusChamado status) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
+       
 
         String sql = "SELECT count(*) from mydb.chamados WHERE statuschamadoid = ?";
+     
+        Integer numChamados = null;
 
-        Chamado chamado = new Chamado();
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setInt(1, status.ordinal());
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
 
-        int numChamados = 0;
-        //where setor e where status,
-        //group by data
+            while(prst.next()){
+                numChamados = prst.getInt("count");
+            }
+        }
 
+        return numChamados;
+    }
+    public int numChamadosPorDataAberturaGroupStatus(Date dataAbertura, Date dataAbertura2) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+       
+
+        String sql = "select count(*), statuschamadoid from mydb.chamados where dataabertura >= ? AND dataabertura <= ? group by statuschamadoid";
+     
+        Integer numChamados = null;
+
+        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+            pstm.setDate(1, dataAbertura);
+            pstm.setDate(2, dataAbertura2);
+            pstm.execute();
+            ResultSet prst = pstm.getResultSet();
+
+            while(prst.next()){
+                numChamados = prst.getInt("count");
+            }
+        }
+        
         return numChamados;
     }
 

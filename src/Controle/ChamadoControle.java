@@ -5,6 +5,7 @@ import java.sql.Connection;
 import DAO.ChamadoDAO;
 import DAO.CriarConexao;
 import model.Chamado;
+import model.StatusChamado;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -57,6 +58,9 @@ public class ChamadoControle {
 
 
     //Outros selects
+    public int getNumChamadosPorStatus(StatusChamado status) throws SQLException{
+        return chamadoDAO.numChamadosPorStatus(status);
+    }
     
 
 
