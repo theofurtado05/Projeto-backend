@@ -13,44 +13,44 @@ import java.util.ArrayList;
 
 public class ChamadoControle {
 
-    private Connection connection;
+    private ChamadoDAO chamadoDAO;
 
-    public ChamadoControle(Connection connection) throws SQLException{
+    public ChamadoControle() throws SQLException{
         CriarConexao conexao = new CriarConexao();
-        this.connection = conexao.recuperarConexao();   
+        Connection connection = conexao.recuperarConexao(); 
+        this.chamadoDAO = new ChamadoDAO(connection);  
     }
 
 
     public ArrayList<Chamado> getTodosChamados() throws SQLException{
 
-        ChamadoDAO cDao = new ChamadoDAO();
-        return cDao.retrieveAll();
+        return this.chamadoDAO.retrieveAll();
     }
 
 
     public Chamado getChamadoId(Integer id) throws SQLException{
 
-        ChamadoDAO cDao = new ChamadoDAO();
-        return cDao.retrieve(id);
+      
+        return this.chamadoDAO.retrieve(id);
     }
     
     public boolean createChamado(Chamado chamado) throws SQLException{
-        ChamadoDAO cDao = new ChamadoDAO();
-        cDao.create(chamado);
+
+        this.chamadoDAO.create(chamado);
         System.out.println("Chamado criado com sucesso!");
         return true;
     }
 
     public boolean updateChamado(Chamado chamado) throws SQLException{
-        ChamadoDAO cDao = new ChamadoDAO();
-        cDao.update(chamado);
+        
+        this.chamadoDAO.update(chamado);
         System.out.println("Chamado atualizado com sucesso!");
         return true;
     }
 
     public boolean deleteChamado(Chamado chamado) throws SQLException{
-        ChamadoDAO cDao = new ChamadoDAO();
-        cDao.delete(chamado);
+     
+        this.chamadoDAO.delete(chamado);
         System.out.println("Chamado deletado com sucesso!");
         return true;
     }

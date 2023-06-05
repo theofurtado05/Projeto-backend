@@ -14,7 +14,13 @@ import model.StatusChamado;
 import model.Usuario;
 
 public class ChamadoDAO {
-    
+
+    private Connection connection;
+
+    public ChamadoDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     public ArrayList<Chamado> retrieveAll() throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
@@ -222,6 +228,13 @@ public class ChamadoDAO {
     }
 
     public int numChamadosPorStatus(StatusChamado status) throws SQLException{
+        CriarConexao criarConexao = new CriarConexao();
+        Connection connection = criarConexao.recuperarConexao();
+
+        String sql = "SELECT count(*) from mydb.chamados WHERE statuschamadoid = ?";
+
+        Chamado chamado = new Chamado();
+
         int numChamados = 0;
         //where setor e where status,
         //group by data
@@ -245,7 +258,70 @@ public class ChamadoDAO {
 // where statuschamadoid = 1
 // group by dataabertura
 
-// /**/
+
+// CriarConexao criarConexao = new CriarConexao();
+//         Connection connection = criarConexao.recuperarConexao();
+
+//         String sql = "SELECT * FROM mydb.chamados WHERE pk_id = ?";
+
+//         Chamado chamado = new Chamado();
+
+//         Usuario usuario = new Usuario();
+//         Usuario responsavel = new Usuario();
+//         Departamento departamento = new Departamento();
+
+//        try(PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+//         pstm.setInt(1, id);
+//         pstm.execute();
+//         ResultSet prst = pstm.getResultSet();
+
+//             while(prst.next()){
+//                 Integer pkid = prst.getInt("pk_id");
+            
+//                 Integer usuarioidabriu = prst.getInt("usuarioidabriu");
+
+//                 Integer departamentoid = prst.getInt("departamentoid");
+                
+//                 Integer statuschamadoid = prst.getInt("statuschamadoid");
+
+//                 String assunto = prst.getString("assunto");
+
+//                 String descricao = prst.getString("descricao");
+
+//                 Date dataabertura = prst.getDate("dataabertura");
+
+//                 Date dataprazo = prst.getDate("dataprazo");
+
+//                 Date datafechamamento = prst.getDate("datafechamento");
+
+//                 Integer nivelurgenciaid = prst.getInt("nivelurgenciaid");
+
+//                 Integer usuarioidassumiu = prst.getInt("usuarioidassumiu");
+
+                
+//                 usuario.setPk_id(usuarioidabriu);                
+//                 responsavel.setPk_id(usuarioidassumiu);
+//                 departamento.setId(departamentoid);
+
+//                 chamado.setPk_id(pkid);
+//                 chamado.setUsuario(usuario);
+//                 chamado.setDepartamento(departamento);
+//                 chamado.setStatusChamado(StatusChamado.values()[statuschamadoid - 1]);
+//                 chamado.setAssunto(assunto);
+//                 chamado.setDescricao(descricao);
+//                 chamado.setDataAbertura(dataabertura);
+//                 chamado.setDataPrazo(dataprazo);
+//                 chamado.setDataFechamento(datafechamamento);
+//                 chamado.setNivelUrgencia(NivelUrgencia.values()[nivelurgenciaid - 1]);
+//                 chamado.setResponsavel(responsavel);
+                
+//             }
+       
+//         }
+
+//         connection.close();
+//         return chamado;
+// // /**/
 
 
 
