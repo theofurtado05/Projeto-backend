@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import dto.DadosChamados;
 import model.Chamado;
 import model.Departamento;
 import model.NivelUrgencia;
@@ -251,31 +250,6 @@ public class ChamadoDAO {
         }
 
         return numChamados;
-    }
-
-    //Chamados por data de abertura
-    public DadosChamados numChamadosPorDataAberturaGroupStatus(Date dataAbertura, Date dataAbertura2) throws SQLException{
-        CriarConexao criarConexao = new CriarConexao();
-        Connection connection = criarConexao.recuperarConexao();
-       
-
-        String sql = "select count(*), statuschamadoid from mydb.chamados where dataabertura >= ? AND dataabertura <= ? group by statuschamadoid";
-     
-
-        DadosChamados dados = new DadosChamados();
-
-        try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
-            pstm.setDate(1, dataAbertura);
-            pstm.setDate(2, dataAbertura2);
-            pstm.execute();
-            ResultSet prst = pstm.getResultSet();
-
-            while(prst.next()){
-                Integer numChamados = prst.getInt("count");
-            }
-        }
-        
-        return dados;
     }
 
 }

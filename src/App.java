@@ -26,7 +26,7 @@ public class App {
         Departamento departamento = new Departamento(1, "Comercial");
         Chamado chamado = new Chamado(24, usuario, departamento, responsavel, NivelUrgencia.ALTO, StatusChamado.PENDENTE, new Date(0), null, null, "Testando em apresentaçao", "Estamos fazendo esses testes para a apresentaçao de amanha!");
 
-        System.out.println(chamadoDAO.numChamadosPorDataAberturaGroupStatus(null, null));
+        
         
        
 
