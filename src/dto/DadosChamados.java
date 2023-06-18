@@ -7,11 +7,19 @@ import java.util.List;
 
 public class DadosChamados {
     
+    private HashMap<Date, Integer> mapaDatas = new HashMap<>();
 
-// Lis = new ArrayList<>();
+    public DadosChamados() {
+        mapaDatas = new HashMap<>();
+    }
 
-HashMap<Date, Integer> mapaDatas = new HashMap<>();
+    public HashMap<Date, Integer> getMapaDatas() {
+        return mapaDatas;
+    }
 
+    public void setMapaDatas(HashMap<Date, Integer> mapaDatas) {
+        this.mapaDatas = mapaDatas;
+    }
 
 
 }
