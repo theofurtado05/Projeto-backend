@@ -1,0 +1,82 @@
+-- Schema mydb
+CREATE SCHEMA IF NOT EXISTS mydb;
+
+-- Table Departamento
+CREATE TABLE IF NOT EXISTS mydb.Departamento (
+  pk_id SERIAL PRIMARY KEY,
+  Nome VARCHAR(45) NOT NULL
+);
+
+-- Table PerfilUsuario
+CREATE TABLE IF NOT EXISTS mydb.PerfilUsuario (
+  pk_id SERIAL PRIMARY KEY,
+  nome VARCHAR(45)
+);
+
+-- Table Usuarios
+CREATE TABLE IF NOT EXISTS mydb.Usuarios (
+  pk_id SERIAL PRIMARY KEY,
+  nome VARCHAR(45) NOT NULL,
+  sobrenome VARCHAR(45) NOT NULL,
+  email VARCHAR(60) NOT NULL,
+  perfilUsuario INT,
+  senha VARCHAR(45),
+  departamentoId INT,
+  CONSTRAINT fk_departamento FOREIGN KEY (departamentoId)
+    REFERENCES mydb.Departamento (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_perfil_usuario FOREIGN KEY (perfilUsuario)
+    REFERENCES mydb.PerfilUsuario (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT unique_email UNIQUE (email)
+);
+
+-- Table NivelUrgencia
+CREATE TABLE IF NOT EXISTS mydb.NivelUrgencia (
+  pk_id SERIAL PRIMARY KEY,
+  Nome VARCHAR(45) NOT NULL,
+  DiasPrazo INT
+);
+
+-- Table StatusChamado
+CREATE TABLE IF NOT EXISTS mydb.StatusChamado (
+  pk_id SERIAL PRIMARY KEY,
+  nome VARCHAR(45) NOT NULL
+);
+
+-- Table Chamados
+CREATE TABLE IF NOT EXISTS mydb.Chamados (
+  pk_id SERIAL PRIMARY KEY,
+  usuarioIdAbriu INT NOT NULL,
+  departamentoId INT,
+  statusChamadoid INT NOT NULL,
+  Assunto VARCHAR(90) NOT NULL,
+  Descricao VARCHAR(255) NOT NULL,
+  DataAbertura TIMESTAMP NOT NULL,
+  DataPrazo TIMESTAMP,
+  DataFechamento TIMESTAMP,
+  NivelUrgenciaId INT,
+  usuarioIdAssumiu INT,
+  CONSTRAINT fk_chamado_departamento FOREIGN KEY (departamentoId)
+    REFERENCES mydb.Departamento (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_chamado_nivelurgencia FOREIGN KEY (NivelUrgenciaId)
+    REFERENCES mydb.NivelUrgencia (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_chamado_usuarioabriu FOREIGN KEY (usuarioIdAbriu)
+    REFERENCES mydb.Usuarios (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_chamado_usuarioassumiu FOREIGN KEY (usuarioIdAssumiu)
+    REFERENCES mydb.Usuarios (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_chamado_status FOREIGN KEY (statusChamadoid)
+    REFERENCES mydb.StatusChamado (pk_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
