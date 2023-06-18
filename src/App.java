@@ -20,23 +20,14 @@ public class App {
 
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataabertura = new Date(05/06/2023);
-        Date dataprazo = new Date(8/06/2023);
-        Date datafechamento = new Date(07/06/2023);
-       
-        ChamadoControle cControle = new ChamadoControle();
-        UsuarioControle uControle = new UsuarioControle(connection);
+        ChamadoDAO chamadoDAO = new ChamadoDAO(connection);
+        Usuario usuario = new Usuario(2);
+        Usuario responsavel = new Usuario(3);
+        Departamento departamento = new Departamento(1, "Comercial");
+        Chamado chamado = new Chamado(24, usuario, departamento, responsavel, NivelUrgencia.ALTO, StatusChamado.PENDENTE, new Date(0), null, null, "Testando em apresentaçao", "Estamos fazendo esses testes para a apresentaçao de amanha!");
 
-        Departamento departamento = new Departamento(3,"TI");
-
-        Usuario usuario = new Usuario(10);
-
-        Usuario responsavel = new Usuario(11);
-
+        System.out.println(chamadoDAO.numChamadosPorDataAberturaGroupStatus(null, null));
         
-
-        System.out.println(cControle.getNumChamadosPorStatus(StatusChamado.PAUSADO)); 
        
 
     }

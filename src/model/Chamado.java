@@ -46,6 +46,10 @@ public class Chamado<Urgencia> {
     public Chamado(){
     }
 
+    public Chamado(int pk_id){
+        this.pk_id = pk_id;
+    }
+
 
     //GETTERS
     public int getPk_id(){

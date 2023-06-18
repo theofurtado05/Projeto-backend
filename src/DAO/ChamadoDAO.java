@@ -224,11 +224,13 @@ public class ChamadoDAO {
 
         ArrayList<Chamado> chamados = new ArrayList<Chamado>();
 
-
+        //terminar esse
         //passar json no return
         return chamados;
     }
 
+
+    //numero de chamado por status
     public int numChamadosPorStatus(StatusChamado status) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
@@ -250,6 +252,8 @@ public class ChamadoDAO {
 
         return numChamados;
     }
+
+    //Chamados por data de abertura
     public DadosChamados numChamadosPorDataAberturaGroupStatus(Date dataAbertura, Date dataAbertura2) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
         Connection connection = criarConexao.recuperarConexao();
@@ -273,92 +277,6 @@ public class ChamadoDAO {
         
         return dados;
     }
-
-
-//     /*Chamados por status*/
-// select count(*) from mydb.chamados
-// where statuschamadoid = 1
-
-// /*Chamados por data de abertura agrupado por status*/
-// select count(*), statuschamadoid from mydb.chamados
-// where dataabertura = '2023-05-03'
-// group by statuschamadoid
-
-
-// /*Chamados por status agrupado por data*/
-// select count(*), dataabertura from mydb.chamados
-// where statuschamadoid = 1
-// group by dataabertura
-
-
-// CriarConexao criarConexao = new CriarConexao();
-//         Connection connection = criarConexao.recuperarConexao();
-
-//         String sql = "SELECT * FROM mydb.chamados WHERE pk_id = ?";
-
-//         Chamado chamado = new Chamado();
-
-//         Usuario usuario = new Usuario();
-//         Usuario responsavel = new Usuario();
-//         Departamento departamento = new Departamento();
-
-//        try(PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
-//         pstm.setInt(1, id);
-//         pstm.execute();
-//         ResultSet prst = pstm.getResultSet();
-
-//             while(prst.next()){
-//                 Integer pkid = prst.getInt("pk_id");
-            
-//                 Integer usuarioidabriu = prst.getInt("usuarioidabriu");
-
-//                 Integer departamentoid = prst.getInt("departamentoid");
-                
-//                 Integer statuschamadoid = prst.getInt("statuschamadoid");
-
-//                 String assunto = prst.getString("assunto");
-
-//                 String descricao = prst.getString("descricao");
-
-//                 Date dataabertura = prst.getDate("dataabertura");
-
-//                 Date dataprazo = prst.getDate("dataprazo");
-
-//                 Date datafechamamento = prst.getDate("datafechamento");
-
-//                 Integer nivelurgenciaid = prst.getInt("nivelurgenciaid");
-
-//                 Integer usuarioidassumiu = prst.getInt("usuarioidassumiu");
-
-                
-//                 usuario.setPk_id(usuarioidabriu);                
-//                 responsavel.setPk_id(usuarioidassumiu);
-//                 departamento.setId(departamentoid);
-
-//                 chamado.setPk_id(pkid);
-//                 chamado.setUsuario(usuario);
-//                 chamado.setDepartamento(departamento);
-//                 chamado.setStatusChamado(StatusChamado.values()[statuschamadoid - 1]);
-//                 chamado.setAssunto(assunto);
-//                 chamado.setDescricao(descricao);
-//                 chamado.setDataAbertura(dataabertura);
-//                 chamado.setDataPrazo(dataprazo);
-//                 chamado.setDataFechamento(datafechamamento);
-//                 chamado.setNivelUrgencia(NivelUrgencia.values()[nivelurgenciaid - 1]);
-//                 chamado.setResponsavel(responsavel);
-                
-//             }
-       
-//         }
-
-//         connection.close();
-//         return chamado;
-// // /**/
-
-
-
-
-
 
 }
     

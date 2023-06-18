@@ -4,21 +4,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import model.StatusChamado;
 
 public class DadosChamados {
     
-    private HashMap<Date, Integer> mapaDatas = new HashMap<>();
+    private Map<Integer, StatusChamado> resultados;
 
-    public DadosChamados() {
-        mapaDatas = new HashMap<>();
+    public void ResultadoChamados() {
+        resultados = new HashMap<>();
     }
 
-    public HashMap<Date, Integer> getMapaDatas() {
-        return mapaDatas;
+    public void adicionarResultado(int statusChamadoId, StatusChamado status) {
+        resultados.put(statusChamadoId, status);
     }
 
-    public void setMapaDatas(HashMap<Date, Integer> mapaDatas) {
-        this.mapaDatas = mapaDatas;
+    public Integer getResultado(StatusChamado statusChamado) {
+        return resultados.getOrDefault(statusChamado, 0);
     }
 
 
