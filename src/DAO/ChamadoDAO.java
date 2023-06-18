@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+import dto.DadosChamadosStatus;
 import model.Chamado;
 import model.Departamento;
 import model.NivelUrgencia;
@@ -218,17 +220,7 @@ public class ChamadoDAO {
     }
 
 
-    /*SELECTS*/
-    public ArrayList<Chamado> buscaPorSetor(Departamento departamento) throws SQLException{
-
-        ArrayList<Chamado> chamados = new ArrayList<Chamado>();
-
-        //terminar esse
-        //passar json no return
-        return chamados;
-    }
-
-
+   
     //numero de chamado por status
     public int numChamadosPorStatus(StatusChamado status) throws SQLException{
         CriarConexao criarConexao = new CriarConexao();
@@ -251,6 +243,32 @@ public class ChamadoDAO {
 
         return numChamados;
     }
+
+    //Chamados por data de abertura - incompleto
+    // public DadosChamadosStatus numChamadosPorDataAberturaGroupStatus(Date dataAbertura, Date dataAbertura2) throws SQLException{
+    //     CriarConexao criarConexao = new CriarConexao();
+    //     Connection connection = criarConexao.recuperarConexao();
+       
+
+    //     String sql = "select count(*), statuschamadoid from mydb.chamados where dataabertura >= ? AND dataabertura <= ? group by statuschamadoid";
+     
+
+    //     DadosChamadosStatus dados = new DadosChamadosStatus();
+
+    //     try (PreparedStatement pstm = (PreparedStatement) connection.prepareStatement(sql)){
+    //         pstm.setDate(1, dataAbertura);
+    //         pstm.setDate(2, dataAbertura2);
+    //         pstm.execute();
+    //         ResultSet prst = pstm.getResultSet();
+
+    //         while(prst.next()){
+    //             Integer numChamados = prst.getInt("count");
+                
+    //         }
+    //     }
+        
+    //     return dados;
+    // }
 
 }
     
